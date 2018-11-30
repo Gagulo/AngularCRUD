@@ -11,9 +11,28 @@ import { CustomerService } from '../shared/customer.service';
 export class CustomerListComponent implements OnInit {
 
   constructor(private customerService: CustomerService) { }
+  customerList = [];
+  showDeleteMess: boolean;
 
   ngOnInit() {
-    this.customerService.getCustomers();
+    this.customerService.getCustomers().subscribe(
+      list => {
+        this.customerList = list.map(item => {
+          return {
+            $key: item.key,
+            ...item.payload.val()
+          }
+        })
+      }
+    );
+  }
+
+  onDelete($key) {
+    if (confirm('Delete the record?')) {
+      this.customerService.deleteCustomer($key);
+      this.showDeleteMess = true;
+      setTimeout(() => this.showDeleteMess = false, 3000);
+    }
   }
 
 }

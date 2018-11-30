@@ -1,3 +1,23 @@
-<p>
-  customer-list works!
-</p>
+<table class="table table-sm">
+  <thead>
+    <th>Full Name</th>
+    <th>Mobile</th>
+    <th>City</th>
+  </thead>
+  <ng-container *ngFor="let customer of customerList">
+    <tr class="table-dark">
+      <td>{{ customer.fullName}}</td>
+      <td>{{ customer.mobile}}</td>
+      <td>{{ customer.city}}</td>
+      <td>
+        <button class="btn btn-outline-info" 
+        (click)='customerService.populateForm(customer)'>Edit</button>
+        <button class="btn btn-outline-danger" 
+        (click)='onDelete(customer.$key)'>Delete</button>
+      </td>
+    </tr>
+  </ng-container>
+</table>
+<div class='alert alert-danger' *ngIf='showDeleteMess'>
+  Deleted!
+</div>

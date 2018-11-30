@@ -14,7 +14,7 @@ export class CustomerService {
   form = new FormGroup({
     $key: new FormControl(null),
     fullName: new FormControl('', Validators.required),
-    mobile: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    mobile: new FormControl('', [Validators.required, Validators.minLength(9)]),
     postalCode: new FormControl(''),
     city: new FormControl(''),
   });
@@ -31,5 +31,23 @@ export class CustomerService {
       postalCode: customer.postalCode,
       city: customer.city
     });
+  }
+
+  populateForm(customer) {
+    this.form.setValue(customer);
+  }
+
+  updateCustomer(customer) {
+    this.customerList.update(customer.$key,
+      {
+        fullName: customer.fullName,
+        mobile: customer.mobile,
+        postalCode: customer.postalCode,
+        city: customer.city
+      });
+  }
+
+  deleteCustomer($key: string) {
+    this.customerList.remove($key);
   }
 }
