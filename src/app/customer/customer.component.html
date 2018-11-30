@@ -33,6 +33,9 @@
         <input type="submit" class="btn btn-primary" value="Submit">
       </div>
     </form>
+    <div class="alert alert-info" *ngIf="showSucessMess">
+      Submitted successfully.
+    </div>
   </div>
   <div class="col-md-7">
     <app-customer-list></app-customer-list>
